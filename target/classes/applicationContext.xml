@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd"
+        >
+    <context:property-placeholder location="db.properties"/>
+
+    <!--    配置druid数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+<!--        这里用的加载配置文件中的数据-->
+        <property name="driverClassName" value="${jdbc.driverClass}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+     </bean>
+<!--        创建sqlSessionFactory-->
+    <bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+<!--        数据源-->
+        <property name="dataSource" ref="dataSource"/>
+<!--        别名  别名意义：原来要写asia.lml....person,现在只写person-->
+        <property name="typeAliasesPackage" value="asia.lml.domain"/>
+<!--        映射文件位置-->
+        <property name="mapperLocations">
+            <list>
+<!--                映射文件位置-->
+                <value>mappers/*.xml</value>
+            </list>
+        </property>
+    </bean>
+<!--        扫描dao,实现代理对象，代理对象就是mybatis自己通过接口来实现的dao层。-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+<!--        设置sqlSessionFactory的id-->
+        <property name="sqlSessionFactoryBeanName" value="SqlSessionFactory"></property>
+<!--        设置Dao的包-->
+        <property name="basePackage" value="asia.lml.dao"></property>
+    </bean>
+
+
+</beans>

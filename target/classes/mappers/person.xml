@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="asia.lml.dao.PersonDao">
+    <!--    id通过id找到对应标签  resultType要转化为什么东西    -->
+    <select id="list" resultType="asia.lml.domain.person">
+        select * from user1
+    </select>
+</mapper>

@@ -1,0 +1,14 @@
+spring 整合mybaties
+
+spring—+mybatis实现代理对象
+需要：
+        1.domian
+        2.mapper
+        3.spring文件
+        4.dao接口
+    步骤：
+    1.在spring文件中设置dao接口所在包
+    2.在spring文件中设置映射文件位置
+    3.映射文件中命名空间要和接口的全部路径，id值和doa接口内方法名一致 返回类型是domain类型，
+    3.dao接口内方法名必须要和映射文件id值一样
+    4.在使用时直接ctx.getBean(接口<这个首字母要小写：为什么？扫描到personDao后，首字母变成小写生成bean>,接口.Class)就获取代理对象了。
